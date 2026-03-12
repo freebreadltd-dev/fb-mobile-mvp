@@ -1,4 +1,4 @@
 export const ENV = {
   apiBaseUrl:
-    process.env.EXPO_PUBLIC_API_BASE_URL ?? "http://192.168.0.174:8080",
+    process.env.EXPO_PUBLIC_API_BASE_URL ?? "http://192.168.0.216:8080",
 };

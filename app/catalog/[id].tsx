@@ -1,8 +1,8 @@
+import * as ImagePicker from 'expo-image-picker';
 import { Redirect, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { ActivityIndicator, Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import * as ImagePicker from 'expo-image-picker';
 
 import { createApiClient } from '@/lib/apiClient';
 import { ENV } from '@/lib/env';
@@ -23,6 +23,7 @@ type Listing = {
 type Media = {
   id: string;
   product_id: string;
+  access_url?: string;
   created_at: string;
 };
 
@@ -207,7 +208,16 @@ export default function CatalogDetailScreen() {
           {media.map((m) => (
             <View key={m.id} style={{ borderWidth: 1, borderColor: '#E5E7EB', borderRadius: 10, padding: 10 }}>
               <Text style={{ fontWeight: '600' }}>{m.id}</Text>
-              <Text style={{ color: '#6B7280' }}>Created: {m.created_at}</Text>
+              {m.access_url ? (
+                <Image
+                  source={{ uri: m.access_url }}
+                  style={{ width: '100%', height: 180, borderRadius: 8, marginTop: 8, marginBottom: 8 }}
+                  resizeMode="cover"
+                />
+              ) : null}
+              <Text style={{ color: '#6B7280' }}>
+                Created: {new Date(m.created_at).toLocaleString()}
+              </Text>
             </View>
           ))}
         </View>
